@@ -35,3 +35,10 @@ A sibling directory whose name shares a prefix with the base is easy to miss. If
   - Raises `PathTraversalError` (a subclass of `ValueError`) if the result escapes `base`.
 - `PathTraversalError`
   - Subclass of `ValueError` raised on traversal attempts.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
